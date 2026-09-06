@@ -1,0 +1,10 @@
+# YOLOv8 Dataset Configuration
+# Relative paths from repository root or current execution directory
+path: ../data
+train: train/images
+val: valid/images
+test: test/images
+
+# Classes
+names:
+  0: person

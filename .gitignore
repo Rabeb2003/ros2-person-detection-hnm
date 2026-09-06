@@ -1,0 +1,69 @@
+# ==============================================================================
+# ROS 2 Build Artifacts & Logs
+# ==============================================================================
+build/
+install/
+log/
+colcon.meta
+*.db3
+*.mcap
+metadata.yaml
+
+# ==============================================================================
+# Python & Bytecode
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# ==============================================================================
+# Ultralytics YOLO & Training Artifacts
+# ==============================================================================
+runs/detect/
+runs/train/
+runs/val/
+*.pt.backup
+
+# Ignore large model checkpoints (instructions in weights/README.md)
+weights/*.pt
+yolov8n.pt
+training/results/**/weights/*.pt
+
+# Temporary test outputs and raw benchmark folders
+test_results/
+video_results/
+video_results_initial/
+results_bg_initial/
+results_bg_retrain/
+
+# ==============================================================================
+# Datasets & Heavy Media (Strictly excluded to avoid Git push limits)
+# ==============================================================================
+data/train/
+data/valid/
+data/test/
+data/negatives/
+background/
+videos/
+*.mp4
+*.avi
+*.mkv
+*.mov
+
+# ==============================================================================
+# IDE & System Files
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini

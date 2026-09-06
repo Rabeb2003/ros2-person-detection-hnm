@@ -1,0 +1,11 @@
+person_detector_node:
+  ros__parameters:
+    camera_topic: "/camera/image_raw"
+    annotated_topic: "/person_detector/annotated_image"
+    detections_topic: "/person_detector/detections"
+    weights_path: "weights/best.pt"
+    img_size: 640
+    conf_threshold: 0.30
+    iou_threshold: 0.45
+    device: "cpu"  # Set to "0" for NVIDIA CUDA GPU or "cpu" for CPU inference
+    publish_annotated: true
