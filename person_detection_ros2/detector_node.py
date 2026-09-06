@@ -22,7 +22,7 @@ from vision_msgs.msg import Detection2DArray, Detection2D, ObjectHypothesisWithP
 
 try:
     from cv_bridge import CvBridge
-except ImportError:
+except Exception:
     CvBridge = None
 
 try:

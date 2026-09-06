@@ -167,11 +167,11 @@
     <actor name="person_1">
       <pose>3.0 0 0 0 0 0</pose>
       <skin>
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
       </skin>
       <animation name="walk">
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
         <interpolate_x>true</interpolate_x>
       </animation>
@@ -191,11 +191,11 @@
     <actor name="person_2">
       <pose>4.0 -4.0 0 0 0 0</pose>
       <skin>
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
       </skin>
       <animation name="walk">
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
         <interpolate_x>true</interpolate_x>
       </animation>
@@ -215,11 +215,11 @@
     <actor name="person_3">
       <pose>5.0 0 0 0 0 1.5707</pose>
       <skin>
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
       </skin>
       <animation name="walk">
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
         <interpolate_x>true</interpolate_x>
       </animation>
@@ -239,11 +239,11 @@
     <actor name="person_4">
       <pose>8.0 1.5 0 0 0 3.1415</pose>
       <skin>
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
       </skin>
       <animation name="walk">
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
         <interpolate_x>true</interpolate_x>
       </animation>
@@ -263,11 +263,11 @@
     <actor name="person_5">
       <pose>2.0 4.0 0 0 0 0</pose>
       <skin>
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
       </skin>
       <animation name="walk">
-        <filename>model://person_walking/meshes/walking.dae</filename>
+        <filename>walk.dae</filename>
         <scale>1.0</scale>
         <interpolate_x>true</interpolate_x>
       </animation>
