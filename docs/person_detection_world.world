@@ -1,0 +1,289 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="person_detection_world">
+
+    <!-- ==================== PHYSICS ==================== -->
+    <physics name="default_physics" default="0" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- ==================== PLUGINS (Gazebo Classic / ROS 2 Humble) ==================== -->
+    <plugin name="gazebo_ros_init" filename="libgazebo_ros_init.so"/>
+    <plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+
+    <!-- ==================== LIGHTING ==================== -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- ==================== GROUND PLANE ==================== -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- ==================== ENVIRONMENT: OPEN AREA WITH OBSTACLES ==================== -->
+
+    <!-- Warehouse walls to create an indoor-like scene -->
+    <!-- North wall -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 12 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- South wall -->
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0 -12 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- East wall -->
+    <model name="wall_east">
+      <static>true</static>
+      <pose>12 0 1.0 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- West wall -->
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-12 0 1.0 0 0 1.5708</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>24 0.2 2.0</size></box></geometry>
+          <material>
+            <ambient>0.7 0.7 0.7 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Some clutter obstacles (boxes, cones) for Hard Negative Mining context -->
+    <model name="box_obstacle_1">
+      <static>true</static>
+      <pose>4 3 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.6 0.6 1.0</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>0.6 0.6 1.0</size></box></geometry>
+          <material><ambient>0.5 0.3 0.1 1</ambient><diffuse>0.6 0.4 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="box_obstacle_2">
+      <static>true</static>
+      <pose>-3 5 0.5 0 0 0.3</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.5 0.5 1.0</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>0.5 0.5 1.0</size></box></geometry>
+          <material><ambient>0.5 0.3 0.1 1</ambient><diffuse>0.6 0.4 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="box_obstacle_3">
+      <static>true</static>
+      <pose>6 -4 0.35 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.8 0.8 0.7</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>0.8 0.8 0.7</size></box></geometry>
+          <material><ambient>0.3 0.3 0.6 1</ambient><diffuse>0.4 0.4 0.7 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Vertical poles (classic false-positive triggers for baseline detectors) -->
+    <model name="pole_1">
+      <static>true</static>
+      <pose>-5 2 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry></collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry>
+          <material><ambient>0.6 0.6 0.6 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pole_2">
+      <static>true</static>
+      <pose>7 1 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry></collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry>
+          <material><ambient>0.6 0.6 0.6 1</ambient><diffuse>0.7 0.7 0.7 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ==================== ANIMATED PERSON ACTORS ==================== -->
+    <!-- Gazebo Classic Actor with walk animation + trajectory waypoints -->
+
+    <!-- ACTOR 1: Walks back and forth in front of the robot (2m ahead) -->
+    <actor name="person_1">
+      <pose>3.0 0 0 0 0 0</pose>
+      <skin>
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.0</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint><time>0</time>  <pose>3.0  -3.0 0 0 0  1.5707</pose></waypoint>
+          <waypoint><time>4</time>  <pose>3.0   3.0 0 0 0  1.5707</pose></waypoint>
+          <waypoint><time>8</time>  <pose>3.0  -3.0 0 0 0  1.5707</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!-- ACTOR 2: Crosses the robot path diagonally (4m ahead) -->
+    <actor name="person_2">
+      <pose>4.0 -4.0 0 0 0 0</pose>
+      <skin>
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>1.5</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint><time>0</time>  <pose>4.0  -5.0 0 0 0  0.7854</pose></waypoint>
+          <waypoint><time>5</time>  <pose>8.0   5.0 0 0 0  0.7854</pose></waypoint>
+          <waypoint><time>10</time> <pose>4.0  -5.0 0 0 0  0.7854</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!-- ACTOR 3: Walks parallel to robot at 5m distance -->
+    <actor name="person_3">
+      <pose>5.0 0 0 0 0 1.5707</pose>
+      <skin>
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>3.0</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint><time>0</time>  <pose>5.0  -8.0 0 0 0  1.5707</pose></waypoint>
+          <waypoint><time>6</time>  <pose>5.0   8.0 0 0 0  1.5707</pose></waypoint>
+          <waypoint><time>12</time> <pose>5.0  -8.0 0 0 0  1.5707</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!-- ACTOR 4: Approaches robot from 8m front -->
+    <actor name="person_4">
+      <pose>8.0 1.5 0 0 0 3.1415</pose>
+      <skin>
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.5</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint><time>0</time>  <pose>8.0  1.5  0 0 0  3.1415</pose></waypoint>
+          <waypoint><time>7</time>  <pose>1.5  1.5  0 0 0  3.1415</pose></waypoint>
+          <waypoint><time>14</time> <pose>8.0  1.5  0 0 0  3.1415</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!-- ACTOR 5: Circular stroll near robot (2-6m range) -->
+    <actor name="person_5">
+      <pose>2.0 4.0 0 0 0 0</pose>
+      <skin>
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="walk">
+        <filename>model://person_walking/meshes/walking.dae</filename>
+        <scale>1.0</scale>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>2.0</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walk">
+          <waypoint><time>0</time>  <pose>2.0   4.0  0 0 0  0.0</pose></waypoint>
+          <waypoint><time>3</time>  <pose>6.0   4.0  0 0 0  0.0</pose></waypoint>
+          <waypoint><time>6</time>  <pose>6.0  -2.0  0 0 0  4.7124</pose></waypoint>
+          <waypoint><time>9</time>  <pose>2.0  -2.0  0 0 0  3.1415</pose></waypoint>
+          <waypoint><time>12</time> <pose>2.0   4.0  0 0 0  1.5707</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+  </world>
+</sdf>
